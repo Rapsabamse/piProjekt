@@ -61,7 +61,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
-ipcMain.on('load-url', (event, url) => {
+ipcMain.on('load-url', (_, url) => {
   const win = BrowserWindow.getFocusedWindow()
   if (win) {
     win.loadURL(url)
