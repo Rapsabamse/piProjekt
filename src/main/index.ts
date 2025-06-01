@@ -9,6 +9,7 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    fullscreen: true,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -64,5 +65,11 @@ ipcMain.on('load-url', (event, url) => {
   const win = BrowserWindow.getFocusedWindow()
   if (win) {
     win.loadURL(url)
+  }
+})
+
+ipcMain.on('exit-fullscreen', () => {
+  if (mainWindow) {
+    mainWindow.setFullScreen(false)
   }
 })
