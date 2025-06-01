@@ -3,4 +3,7 @@
 }
 
 .app-apps {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
 }
