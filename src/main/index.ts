@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -7,8 +7,8 @@ let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 600,
+    height: 600,
     fullscreen: true,
     show: false,
     autoHideMenuBar: true,
@@ -23,6 +23,22 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show()
+  })
+
+  globalShortcut.register('Escape', () => {
+    mainWindow!.webContents.send('global-key', 'Escape')
+    const win = BrowserWindow.getFocusedWindow()
+    if (win) {
+      win.loadFile(join(__dirname, '../renderer/index.html'))
+    }
+  })
+
+  globalShortcut.register('CommandOrControl+Backspace', () => {
+    mainWindow!.webContents.send('global-key', 'Ctrl+Backspace')
+    const win = BrowserWindow.getFocusedWindow()
+    if (win) {
+      win.loadFile(join(__dirname, '../renderer/index.html'))
+    }
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -59,13 +75,6 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
-})
-
-ipcMain.on('load-url', (_, url) => {
-  const win = BrowserWindow.getFocusedWindow()
-  if (win) {
-    win.loadURL(url)
-  }
 })
 
 ipcMain.on('exit-fullscreen', () => {
