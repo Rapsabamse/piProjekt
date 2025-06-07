@@ -14,12 +14,7 @@ const SiteComponent: React.FC<siteComponentProps> = ({ name, url, image, index }
 
   return (
     <>
-      <div
-        className="site-component-wrapper"
-        key={'site-' + index}
-        onClick={goToSite}
-        style={{ backgroundColor: 'var(--accent-color)' }}
-      >
+      <div className="site-component-wrapper" key={'site-' + index} onClick={goToSite}>
         <img src={image}></img>
         <h1>{name}</h1>
       </div>
