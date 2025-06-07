@@ -5,6 +5,7 @@ declare global {
     electronAPI: {
       loadURL: (url: string) => void
       exitFullscreen: () => void
+      quitApp: () => void
     }
   }
 }

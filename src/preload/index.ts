@@ -13,7 +13,8 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('api', api)
     contextBridge.exposeInMainWorld('electronAPI', {
       loadURL: (url: string) => ipcRenderer.send('load-url', url),
-      exitFullscreen: () => ipcRenderer.send('exit-fullscreen')
+      exitFullscreen: () => ipcRenderer.send('exit-fullscreen'),
+      quitApp: () => ipcRenderer.send('quit-app')
     })
   } catch (error) {
     console.error(error)

@@ -73,3 +73,7 @@ ipcMain.on('exit-fullscreen', () => {
     mainWindow.setFullScreen(false)
   }
 })
+
+ipcMain.on('quit-app', () => {
+  app.quit()
+})
